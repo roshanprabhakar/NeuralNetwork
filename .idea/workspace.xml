@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="c99a8ab7-ae11-4a08-a65d-1ca6657348d8" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand />
+    <select />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+    <option name="ROOT_SYNC" value="DONT_SYNC" />
+  </component>
+  <component name="ProjectId" id="1SmCZd7TpbU3lPst57lmnqhKEyX" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="settings.editor.selected.configurable" value="vcs.Git" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="Application.NNTesting">
+    <configuration name="Main" type="Application" factoryName="Application" singleton="false" temporary="true">
+      <option name="MAIN_CLASS_NAME" value="Main" />
+      <module name="PerceptronClassifier" />
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="NNTesting" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="NNTesting" />
+      <module name="PerceptronClassifier" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.NNTesting" />
+        <item itemvalue="Application.Main" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="c99a8ab7-ae11-4a08-a65d-1ca6657348d8" name="Default Changelist" comment="" />
+      <created>1572159441041</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1572159441041</updated>
+      <workItem from="1572159442553" duration="1618000" />
+      <workItem from="1572236518912" duration="13000" />
+      <workItem from="1572242433885" duration="5620000" />
+      <workItem from="1572302902330" duration="1020000" />
+      <workItem from="1572493527272" duration="3365000" />
+      <workItem from="1572570647661" duration="7162000" />
+      <workItem from="1572663612190" duration="4267000" />
+      <workItem from="1572845040035" duration="1879000" />
+      <workItem from="1573000800513" duration="11724000" />
+      <workItem from="1573018692930" duration="3187000" />
+      <workItem from="1573023571484" duration="376000" />
+      <workItem from="1573068932049" duration="5552000" />
+      <workItem from="1573190884678" duration="2059000" />
+      <workItem from="1573234562704" duration="6167000" />
+      <workItem from="1573281710002" duration="2408000" />
+      <workItem from="1573332346917" duration="9647000" />
+      <workItem from="1573372582816" duration="982000" />
+      <workItem from="1573421207308" duration="989000" />
+      <workItem from="1573422713201" duration="1512000" />
+      <workItem from="1573629111599" duration="2167000" />
+      <workItem from="1573673674313" duration="5459000" />
+      <workItem from="1573702860338" duration="1583000" />
+      <workItem from="1573796819528" duration="1390000" />
+      <workItem from="1573843232854" duration="2017000" />
+      <workItem from="1573877913275" duration="4023000" />
+      <workItem from="1573946452359" duration="7936000" />
+      <workItem from="1574135947260" duration="1922000" />
+      <workItem from="1574282779451" duration="535000" />
+      <workItem from="1574448498557" duration="124000" />
+      <workItem from="1574453681794" duration="1693000" />
+      <workItem from="1574908207319" duration="1324000" />
+      <workItem from="1575489050171" duration="1646000" />
+      <workItem from="1575605971809" duration="1990000" />
+      <workItem from="1575658046074" duration="1192000" />
+      <workItem from="1576956252498" duration="8649000" />
+      <workItem from="1577145661525" duration="3539000" />
+      <workItem from="1577171158919" duration="1345000" />
+      <workItem from="1577232571978" duration="7482000" />
+      <workItem from="1577311615803" duration="2956000" />
+      <workItem from="1577510213110" duration="1297000" />
+      <workItem from="1577747806122" duration="9131000" />
+      <workItem from="1577847556862" duration="9161000" />
+      <workItem from="1577918129412" duration="1260000" />
+    </task>
+    <task id="LOCAL-00001" summary="improved guess method (threshed guess to above and below 0.5 (median sigmoid value))">
+      <created>1573423645474</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1573423645474</updated>
+    </task>
+    <task id="LOCAL-00002" summary="added a tester for nonlinear separability">
+      <created>1573631338902</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1573631338902</updated>
+    </task>
+    <task id="LOCAL-00003" summary="optimized sigmoid activation">
+      <created>1573703173157</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1573703173157</updated>
+    </task>
+    <task id="LOCAL-00004" summary="created separability checker">
+      <created>1573796855794</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1573796855794</updated>
+    </task>
+    <task id="LOCAL-00005" summary="created a network structure to link multiple perceptrons">
+      <created>1573976091396</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1573976091396</updated>
+    </task>
+    <task id="LOCAL-00006" summary="added weightage updates">
+      <created>1576957684673</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1576957684673</updated>
+    </task>
+    <task id="LOCAL-00007" summary="partial derivative calculator generalized for n layers of n perceptrons">
+      <created>1577245389453</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1577245389453</updated>
+    </task>
+    <task id="LOCAL-00008" summary="generalized partial derivatives dLn/dL(n-1)">
+      <created>1577245956223</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1577245956223</updated>
+    </task>
+    <task id="LOCAL-00009" summary="added framework for output layer development">
+      <created>1577247171617</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1577247171617</updated>
+    </task>
+    <task id="LOCAL-00010" summary="finalized process for finding complete derivatives of loss with respect to each weight in the network">
+      <created>1577851075071</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1577851075071</updated>
+    </task>
+    <task id="LOCAL-00011" summary="added todo for method involving finding complete weight derivatives wrt loss">
+      <created>1577851256902</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1577851256902</updated>
+    </task>
+    <task id="LOCAL-00012" summary="finalized derivative updates for weights and biases">
+      <created>1577873080962</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1577873080962</updated>
+    </task>
+    <task id="LOCAL-00013" summary="added generalized training for multiple inputs">
+      <created>1577873348382</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1577873348382</updated>
+    </task>
+    <task id="LOCAL-00014" summary="added appropriate goal markers">
+      <created>1577873407858</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1577873407858</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="improved guess method (threshed guess to above and below 0.5 (median sigmoid value))" />
+    <MESSAGE value="added a tester for nonlinear separability" />
+    <MESSAGE value="optimized sigmoid activation" />
+    <MESSAGE value="created separability checker" />
+    <MESSAGE value="created a network structure to link multiple perceptrons" />
+    <MESSAGE value="added weightage updates" />
+    <MESSAGE value="partial derivative calculator generalized for n layers of n perceptrons" />
+    <MESSAGE value="generalized partial derivatives dLn/dL(n-1)" />
+    <MESSAGE value="added framework for output layer development" />
+    <MESSAGE value="finalized process for finding complete derivatives of loss with respect to each weight in the network" />
+    <MESSAGE value="added todo for method involving finding complete weight derivatives wrt loss" />
+    <MESSAGE value="finalized derivative updates for weights and biases" />
+    <MESSAGE value="added generalized training for multiple inputs" />
+    <MESSAGE value="added appropriate goal markers" />
+    <option name="LAST_COMMIT_MESSAGE" value="added appropriate goal markers" />
+  </component>
+</project>
