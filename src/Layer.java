@@ -24,4 +24,12 @@ public class Layer implements NetworkConstants {
     public int length() {
         return neurons.length;
     }
+
+    public String toString() {
+        StringBuilder out = new StringBuilder();
+        for (int i = 0; i < neurons.length; i++) {
+            out.append("[").append(neurons[i].getWeights()).append("]{").append(Data.round(neurons[i].getBias(), 100)).append("}").append("   ");
+        }
+        return out.toString();
+    }
 }

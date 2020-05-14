@@ -13,7 +13,7 @@ public class Vector {
     public Vector(int i, boolean random) {
         this.vector = new double[i];
         for (int j = 0; j < vector.length; j++) {
-            vector[j] = Math.random();
+            vector[j] = Math.random() * 1;
         }
     }
 
@@ -139,13 +139,13 @@ public class Vector {
 //    }
 
     public String toString() {
-        String out = "(";
+        StringBuilder out = new StringBuilder("(");
         for (int i = 0; i < vector.length; i++) {
-            out += vector[i];
-            if (i != vector.length - 1) out += ", ";
+            out.append(Data.round(vector[i], 10000));
+            if (i != vector.length - 1) out.append(", ");
         }
-        out += ")";
-        return out;
+        out.append(")");
+        return out.toString();
     }
 
 

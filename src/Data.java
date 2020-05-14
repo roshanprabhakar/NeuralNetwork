@@ -35,4 +35,8 @@ public class Data {
     public String toString() {
         return values.toString();
     }
+
+    public static double round(double d, int place) {
+        return (int)(d * place)/(double)place;
+    }
 }

@@ -2,9 +2,22 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c99a8ab7-ae11-4a08-a65d-1ca6657348d8" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/IrisDataHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PerceptronClassifier/Data.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PerceptronClassifier/Data.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PerceptronClassifier/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PerceptronClassifier/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PerceptronClassifier/Perceptron.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PerceptronClassifier/Perceptron.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PerceptronClassifier/Vector.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PerceptronClassifier/Vector.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Data.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Data.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Layer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Layer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/NNTesting.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/NNTesting.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/NetworkConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/NetworkConstants.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/NeuralNetwork.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/NeuralNetwork.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Perceptron.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Perceptron.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Vector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Vector.java" afterDir="false" />
     </list>
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -33,15 +46,21 @@
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="ROOT_SYNC" value="DONT_SYNC" />
   </component>
   <component name="ProjectId" id="1SmCZd7TpbU3lPst57lmnqhKEyX" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
@@ -56,18 +75,6 @@
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.0" />
     <property name="settings.editor.selected.configurable" value="vcs.Git" />
-  </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
   </component>
   <component name="RunManager" selected="Application.NNTesting">
     <configuration name="Main" type="Application" factoryName="Application" singleton="false" temporary="true">
@@ -146,6 +153,8 @@
       <workItem from="1577747806122" duration="9131000" />
       <workItem from="1577847556862" duration="9161000" />
       <workItem from="1577918129412" duration="1260000" />
+      <workItem from="1589313714761" duration="13592000" />
+      <workItem from="1589405584032" duration="10487000" />
     </task>
     <task id="LOCAL-00001" summary="improved guess method (threshed guess to above and below 0.5 (median sigmoid value))">
       <created>1573423645474</created>
@@ -249,20 +258,19 @@
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="1" />
+    <option name="version" value="2" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
         <entry key="MAIN">
           <value>
-            <State>
-              <option name="COLUMN_ORDER" />
-            </State>
+            <State />
           </value>
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
@@ -281,5 +289,51 @@
     <MESSAGE value="added generalized training for multiple inputs" />
     <MESSAGE value="added appropriate goal markers" />
     <option name="LAST_COMMIT_MESSAGE" value="added appropriate goal markers" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state width="1878" height="242" key="GridCell.Tab.0.bottom" timestamp="1589426713227">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1398" height="242" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1589413199433" />
+    <state width="1878" height="242" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1589426713227" />
+    <state width="1878" height="242" key="GridCell.Tab.0.center" timestamp="1589426713227">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1398" height="242" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1589413199432" />
+    <state width="1878" height="242" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1589426713227" />
+    <state width="1878" height="242" key="GridCell.Tab.0.left" timestamp="1589426713226">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1398" height="242" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1589413199431" />
+    <state width="1878" height="242" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1589426713226" />
+    <state width="1878" height="242" key="GridCell.Tab.0.right" timestamp="1589426713227">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1398" height="242" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1589413199432" />
+    <state width="1878" height="242" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1589426713227" />
+    <state width="1878" height="367" key="GridCell.Tab.1.bottom" timestamp="1589357407605">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1878" height="367" key="GridCell.Tab.1.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1589357407605" />
+    <state width="1878" height="367" key="GridCell.Tab.1.center" timestamp="1589357407604">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1878" height="367" key="GridCell.Tab.1.center/0.0.1920.1080@0.0.1920.1080" timestamp="1589357407604" />
+    <state width="1878" height="367" key="GridCell.Tab.1.left" timestamp="1589357407604">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1878" height="367" key="GridCell.Tab.1.left/0.0.1920.1080@0.0.1920.1080" timestamp="1589357407604" />
+    <state width="1878" height="367" key="GridCell.Tab.1.right" timestamp="1589357407605">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1878" height="367" key="GridCell.Tab.1.right/0.0.1920.1080@0.0.1920.1080" timestamp="1589357407605" />
+    <state x="720" y="436" key="git4idea.remote.GitConfigureRemotesDialog" timestamp="1589426854027">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="720" y="436" key="git4idea.remote.GitConfigureRemotesDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1589426854027" />
+    <state x="625" y="241" width="670" height="676" key="search.everywhere.popup" timestamp="1589352522172">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="625" y="241" width="670" height="676" key="search.everywhere.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1589352522172" />
   </component>
 </project>

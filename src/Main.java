@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Main implements NetworkConstants {
 
@@ -8,11 +9,14 @@ public class Main implements NetworkConstants {
     public static void main(String[] args) throws InterruptedException {
 
         DataSet set = new DataSet("TestData.txt");
-        ArrayList<Data> data = set.getData(set.getDataSize(), 0);
+//        ArrayList<Data> data = set.getData(set.getDataSize(), 0);
+        ArrayList<Data> data = set.getData(2,0);
         Perceptron perceptron = new Perceptron(DATA_LENGTH, TARGET, LEARNING_RATE, EPOCHS, POWER, false);
+//        perceptron.train(data);
+//        System.out.println(perceptron.equation());
         perceptron.visualizeLoss(data);
 
-        Thread.sleep(1000000);
+//        Thread.sleep(1000000);
 
 //        DataSet set = new DataSet("TestData.txt");
 //        Perceptron perceptron = new Perceptron(DATA_LENGTH, TARGET, LEARNING_RATE, EPOCHS, POWER);

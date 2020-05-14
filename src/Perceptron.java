@@ -61,7 +61,7 @@ public class Perceptron {
                     (map(data.getId()) - guess(data.getVector()));
 //            System.out.println(loss);
         }
-        return loss;
+        return 0.5 * loss;
     }
 
     //remove automatic epochs, add manual epochs: gives a numeric success measurement
@@ -173,6 +173,7 @@ public class Perceptron {
 
     private int sigmoidMap(double error) {
         if (error >= 0.5) return 1; else return 0;
+//        if (error >= 0.5) return 0; else return 1;
     }
 
     public int map(String id) {
