@@ -167,6 +167,10 @@ public class Perceptron {
         return -(1 / (1 + Math.exp(input))) + 1;
     }
 
+    public static String sigmoidRep(String x) {
+        return "(1/(1+e^(-1*(" + x + "))))";
+    }
+
     public static double sigmoidDerivative(double input) {
         return sigmoid(input) * (1 - sigmoid(input));
     }
@@ -201,6 +205,17 @@ public class Perceptron {
         this.bias = newBias;
     }
 
+    //VISUALIZATIONS AND TESTING
+    public String stringRep(String[] input) {
+        assert input.length == weights.length();
+        String inner = "";
+        for (int i = 0; i < weights.length(); i++) {
+            inner += "(w" + i + " * " + input[i] + ")";
+            if (i != weights.length() - 1) inner += " + ";
+        }
+        return Perceptron.sigmoidRep(inner + " + " + bias);
+    }
+
     public String equation() {
         String out = "";
         for (int i = 0; i < dataLength; i++) {
@@ -212,7 +227,6 @@ public class Perceptron {
         return out;
     }
 
-    //VISUALIZATIONS AND TESTING
     public void visualTrain(ArrayList<Data> trainingDataSet, int numDataSets) throws InterruptedException {
         Graph graph = new Graph(trainingDataSet, numDataSets);
         Graph.displayChart(graph.getChart());

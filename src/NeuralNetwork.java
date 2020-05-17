@@ -1,7 +1,13 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class NeuralNetwork implements NetworkConstants { //TODO write output layer calculations with neuron counts different than those of hidden layers
+//TODO write output layer calculations with neuron counts different than those of hidden layers
+//TODO write gradient checking:
+//      - compute pass starting on any neuron, ending on any neuron
+//      - add a really h, forward pass again
+//      - use the change in output neuron to determine an approximation for the derivative
+
+public class NeuralNetwork implements NetworkConstants {
 
     private ArrayList<Layer> network;
     private int neuronsPerLayer;
@@ -20,6 +26,12 @@ public class NeuralNetwork implements NetworkConstants { //TODO write output lay
         this.layers = numHiddenLayers;
     }
 
+    //TODO develop this
+    public NeuralNetwork(ArrayList<Layer> network) {
+        this.network = network;
+        this.layers = network.size();
+    }
+
     //Customized for sigmoid activations active in every neuron
     public ForwardPropOutput forwardProp(Vector input) {
         Vector[] matrix = new Vector[network.size()];
@@ -32,6 +44,50 @@ public class NeuralNetwork implements NetworkConstants { //TODO write output lay
 
         return new ForwardPropOutput(passed, matrix);
     }
+
+    public ForwardPropOutput forwardProp(Vector input, int startLayer) {
+        Vector[] matrix = new Vector[network.size() - startLayer];
+        Vector passed = network.get(startLayer).activations(input);
+        matrix[0] = passed.copy();
+        for (int i = 1; i < matrix.length; i++) {
+            passed = network.get(i + startLayer).activations(passed);
+            matrix[i] = passed.copy();
+        }
+        return new ForwardPropOutput(passed, matrix);
+    }
+
+    //An implementation of gradient checking
+    public double getApproximateLossDerivative(int layer, int neuron, int weight, Vector networkInput, Vector actual, double h) {
+
+        ForwardPropOutput output = forwardProp(networkInput);
+        Vector[] activations = output.getIntermediaryMatrix();
+
+        ForwardPropOutput relativeOutput = null;
+        if (layer == 0) {
+            relativeOutput = forwardProp(networkInput, layer);
+        } else {
+            relativeOutput = forwardProp(activations[layer - 1], layer);
+        }
+
+        double initialLoss = computeLoss(relativeOutput.getResultant(), actual);
+
+
+        Perceptron init = network.get(layer).get(neuron);
+        init.getWeights().set(weight, init.getWeights().get(weight) + h);
+
+        ForwardPropOutput changedOutput = null;
+        if (layer == 0) {
+            changedOutput = forwardProp(networkInput, layer);
+        } else {
+            changedOutput = forwardProp(activations[layer - 1], layer);
+        }
+
+        double finalLoss = computeLoss(changedOutput.getResultant(), actual);
+
+        return (finalLoss - initialLoss) / h;
+
+    }
+
 
     public void train(ArrayList<NetworkData> data) {
         for (NetworkData networkData : data) {
@@ -69,10 +125,14 @@ public class NeuralNetwork implements NetworkConstants { //TODO write output lay
         Double[][] dLossdBiases = getBiasDWRTLoss(dLossdActivations, dActivationsdBias);
 
 
+//        for (int i = 0; i < dLossdWeights.length; i++) {
+//            System.out.println(Arrays.toString(dLossdWeights[i]));
+//        }
+
         //Update all weights and biases
-        System.out.print("Loss before weight updates: ");
-        double lossi = computeLoss(prediction, correct);
-        System.out.println(lossi);
+//        System.out.print("Loss before weight updates: ");
+//        double lossi = computeLoss(prediction, correct);
+//        System.out.println(lossi);
 
         for (int layerIndex = 0; layerIndex < layers; layerIndex++) {
             for (int neuronIndex = 0; neuronIndex < network.get(layerIndex).length(); neuronIndex++) {
@@ -85,42 +145,36 @@ public class NeuralNetwork implements NetworkConstants { //TODO write output lay
 
                     //update transformations to induce change through dx/dy, not dy/dx where y=loss, x=weights vector
                     if (weightSlope > 0) {
-                        neuron.updateWeight(weightIndex, neuron.getWeights().get(weightIndex) - (-0.01) * (1/weightSlope));
+                        neuron.updateWeight(weightIndex, neuron.getWeights().get(weightIndex) - (-0.01) * (1 / weightSlope));
                     } else if (weightSlope < 0) {
-                        neuron.updateWeight(weightIndex, neuron.getWeights().get(weightIndex) + (-0.01) * (1/weightSlope));
+                        neuron.updateWeight(weightIndex, neuron.getWeights().get(weightIndex) + (-0.01) * (1 / weightSlope));
                     }
+
+//                    System.out.print("Derivative of loss wrt this one weight: ");
+//                    System.out.println(weightSlope);
                 }
 
                 double biasSlope = dLossdBiases[layerIndex][neuronIndex];
 
                 //update transformations to induce change through dx/dy, not dy/dx where y=loss, x=weights vector
                 if (biasSlope > 0) {
-                    neuron.updateBias(neuron.getBias() - (-0.01) * (1/biasSlope));
+//                    neuron.updateBias(neuron.getBias() - (-0.01) * (1/biasSlope));
+                    neuron.updateBias(neuron.getBias() - 0.001);
                 } else if (biasSlope < 0) {
-                    neuron.updateBias(neuron.getBias() + (-0.01) * (1/biasSlope));
+//                    neuron.updateBias(neuron.getBias() + (-0.01) * (1 / biasSlope));
+                    neuron.updateBias(neuron.getBias() + 0.001);
                 }
             }
         }
 
-        ForwardPropOutput newOutput = forwardProp(input);
-
-        System.out.print("Loss after weight updates: ");
-        double lossf = computeLoss(newOutput.getResultant(), correct);
-        System.out.println(lossf);
-
-        System.out.print("difference: ");
-        System.out.println(lossf - lossi);
-
-
-        //update weights and biases
-//        for (int layer = 0; layer < layers; layer++) {
-//            for (int neuron = 0; neuron < neuronsPerLayer; neuron++) {
-//                network.get(layer).get(neuron).getWeights().concat(dLossdWeights[layer][neuron].multiplyScalar(-1));
-//                network.get(layer).get(neuron).updateBias(network.get(layer).get(neuron).getBias() - dLossdBiases[layer][neuron]);
-//            }
-//        }
-
-//        displayWeightsAndBiases();
+//        ForwardPropOutput newOutput = forwardProp(input);
+//
+//        System.out.print("Loss after weight updates: ");
+//        double lossf = computeLoss(newOutput.getResultant(), correct);
+//        System.out.println(lossf);
+//
+//        System.out.print("difference: ");
+//        System.out.println(lossf - lossi);
     }
 
     //Finds the derivative of each neuron's activation with respect to every weight within the neuron.
