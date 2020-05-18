@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 
 public class IrisDataHandler {
@@ -12,14 +13,24 @@ public class IrisDataHandler {
         this.lines = getLines(filepath);
     }
 
-    public ArrayList<IrisData> getData() {
+    public HashMap<String, ArrayList<IrisData>> getData(double percentTraining) {
         Vector[] input = getInputData();
         Vector[] output = getOutputData();
         ArrayList<IrisData> out = new ArrayList<>();
         for (int i = 0; i < input.length; i++) {
             out.add(new IrisData(input[i], output[i]));
         }
-        return out;
+        Collections.shuffle(out);
+        HashMap<String, ArrayList<IrisData>> split = new HashMap<>();
+        ArrayList<IrisData> training = new ArrayList<>();
+        ArrayList<IrisData> testing = new ArrayList<>();
+        for (int i = 0; i < out.size(); i++) {
+            if (i < out.size() * percentTraining) training.add(out.get(i));
+            else testing.add(out.get(i));
+        }
+        split.put("training", training);
+        split.put("testing", testing);
+        return split;
     }
 
     public Vector[] getInputData() {
@@ -39,13 +50,13 @@ public class IrisDataHandler {
         Vector[] outputData = new Vector[lines.size()];
         for (int i = 0; i < lines.size(); i++) {
             String[] dataPoint = lines.get(i).split(",");
-            double[] output = new double[1];
+            double[] output = new double[3];
             if (dataPoint[4].equals("Iris-setosa")) {
-                output[0] = 0;
+                output = new double[]{1,0,0};
             } else if (dataPoint[4].equals("Iris-virginica")) {
-                output[0] = 1;
+                output = new double[]{0,1,0};
             } else if (dataPoint[4].equals("Iris-versicolor")) {
-                output[0] = 2;
+                output = new double[]{0,0,1};
             }
             outputData[i] = new Vector(output);
         }

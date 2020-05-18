@@ -13,7 +13,7 @@ public class NeuralNetwork implements NetworkConstants {
     private int inputSize; //unused but probably necessary
     private int layers;
 
-    private double learningRate = 0.0001;
+    private double learningRate = 0.01;
 
     public NeuralNetwork(int inputSize, int neuronsPerHidden, int numHiddenLayers) {
         network = new ArrayList<>();
@@ -82,24 +82,43 @@ public class NeuralNetwork implements NetworkConstants {
         return (finalLoss - initialLoss) / h;
     }
 
-    //TODO implement momentum updates
+    //TODO implement updates with momentum
+    //TODO the momentum is equal to 2 * (the sigmoid of the magnitude of the derivative of the loss - 0.5)
     public void train(Vector input, Vector actual) {
 
-        ForwardPropOutput initialPass = forwardProp(input);
-        System.out.println("initial loss: " + computeLoss(initialPass.getResultant(), actual));
+//        ForwardPropOutput initialPass = forwardProp(input);
+//        System.out.println("initial loss: " + computeLoss(initialPass.getResultant(), actual));
 
-        for (double i = 0; i < 100; i++) {
+        double loss;
+        double momentum = 1;
+        while (momentum > 0.001) {
             NetworkGradient trainingGradient = getGradient(input, actual);
-            NetworkGradient updateVector = getUpdateVector(trainingGradient, 1);
+            momentum = 2 * (Perceptron.sigmoid(getGradientMagnitude(trainingGradient)) - 0.5);
+            NetworkGradient updateVector = getUpdateVector(trainingGradient, momentum);
             updateWeightsAndBiases(updateVector);
+            loss = computeLoss(forwardProp(input).getResultant(), actual);
+//            System.out.println(momentum);
         }
 
-        ForwardPropOutput finalPass = forwardProp(input);
-        System.out.println("final loss: " + computeLoss(finalPass.getResultant(), actual));
+//        ForwardPropOutput finalPass = forwardProp(input);
+//        System.out.println("final loss: " + computeLoss(finalPass.getResultant(), actual));
+    }
 
-        System.out.println();
-        System.out.println("network");
-        display();
+    public double getGradientMagnitude(NetworkGradient networkOutput) {
+        double magnitude = 0;
+        for (Vector[] layer : networkOutput.getdLossdWeights()) {
+            for (Vector neuron : layer) {
+                for (double weight : neuron.getVector()) {
+                    magnitude += weight * weight;
+                }
+            }
+        }
+        for (Double[] layer : networkOutput.getdLossdBiases()) {
+            for (Double dlossdbias : layer) {
+                magnitude += dlossdbias * dlossdbias;
+            }
+        }
+        return Math.sqrt(magnitude);
     }
 
     public void updateWeightsAndBiases(NetworkGradient updateVector) {
