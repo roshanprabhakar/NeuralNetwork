@@ -159,10 +159,10 @@ public class Perceptron {
     }
 
     public static double sigmoid(double input) { //capped to prevent overflow error, less exponential calculations
-        if (input >= 13) {
-            return -(1 / (1 + Math.exp(13))) + 1;
-        } else if (input <= -13) {
-            return -(1 / (1 + Math.exp(-13))) + 1;
+        if (input >= 23) {
+            return -(1 / (1 + Math.exp(23))) + 1;
+        } else if (input <= -23) {
+            return -(1 / (1 + Math.exp(-23))) + 1;
         }
         return -(1 / (1 + Math.exp(input))) + 1;
     }

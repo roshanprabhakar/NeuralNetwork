@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 
 //TODO write output layer calculations with neuron counts different than those of hidden layers
 //TODO write gradient checking:
@@ -14,6 +13,8 @@ public class NeuralNetwork implements NetworkConstants {
     private int inputSize; //unused but probably necessary
     private int layers;
 
+    private double learningRate = 0.0001;
+
     public NeuralNetwork(int inputSize, int neuronsPerHidden, int numHiddenLayers) {
         network = new ArrayList<>();
         network.add(new Layer(neuronsPerHidden, inputSize));
@@ -24,12 +25,6 @@ public class NeuralNetwork implements NetworkConstants {
         this.inputSize = inputSize;
         this.neuronsPerLayer = neuronsPerHidden;
         this.layers = numHiddenLayers;
-    }
-
-    //TODO develop this
-    public NeuralNetwork(ArrayList<Layer> network) {
-        this.network = network;
-        this.layers = network.size();
     }
 
     //Customized for sigmoid activations active in every neuron
@@ -85,17 +80,78 @@ public class NeuralNetwork implements NetworkConstants {
         double finalLoss = computeLoss(changedOutput.getResultant(), actual);
 
         return (finalLoss - initialLoss) / h;
-
     }
 
+    //TODO implement momentum updates
+    public void train(Vector input, Vector actual) {
 
-    public void train(ArrayList<NetworkData> data) {
-        for (NetworkData networkData : data) {
-            train(networkData.getInput(), networkData.getCorrect());
+        ForwardPropOutput initialPass = forwardProp(input);
+        System.out.println("initial loss: " + computeLoss(initialPass.getResultant(), actual));
+
+        for (double i = 0; i < 100; i++) {
+            NetworkGradient trainingGradient = getGradient(input, actual);
+            NetworkGradient updateVector = getUpdateVector(trainingGradient, 1);
+            updateWeightsAndBiases(updateVector);
+        }
+
+        ForwardPropOutput finalPass = forwardProp(input);
+        System.out.println("final loss: " + computeLoss(finalPass.getResultant(), actual));
+
+        System.out.println();
+        System.out.println("network");
+        display();
+    }
+
+    public void updateWeightsAndBiases(NetworkGradient updateVector) {
+        for (int layer = 0; layer < network.size(); layer++) {
+            for (int neuron = 0; neuron < network.get(layer).length(); neuron++) {
+
+                Perceptron perceptron = network.get(layer).get(neuron);
+
+                for (int weight = 0; weight < network.get(layer).length(); weight++) {
+                    perceptron.getWeights().set(weight, perceptron.getWeights().get(weight) + updateVector.getdLossdWeights()[layer][neuron].get(weight));
+                }
+                perceptron.updateBias(perceptron.getBias() + updateVector.getdLossdBiases()[layer][neuron]);
+            }
         }
     }
 
-    public void train(Vector input, Vector correct) {//TODO what value should be used to update each weight? It should be related to the derivatives themselves
+    public NetworkGradient getUpdateVector(NetworkGradient gradient, double momentum) {
+
+        Vector[][] dLossdWeights = gradient.getdLossdWeights();
+        Double[][] dLossdBiases = gradient.getdLossdBiases();
+
+        Vector[][] weightUpdates = new Vector[dLossdWeights.length][dLossdWeights[0].length];
+        Double[][] biasUpdates = new Double[dLossdBiases.length][dLossdBiases[0].length];
+
+        for (int layer = 0; layer < weightUpdates.length; layer++) {
+            for (int neuron = 0; neuron < dLossdWeights[layer].length; neuron++) {
+
+                Vector updates = new Vector(dLossdWeights[layer][neuron].length());
+                for (int weight = 0; weight < updates.length(); weight++) {
+                    if (dLossdWeights[layer][neuron].get(weight) < 0) {
+                        updates.set(weight, learningRate * momentum);
+                    } else if (dLossdWeights[layer][neuron].get(weight) > 0) {
+                        updates.set(weight, -learningRate * momentum);
+                    } else {
+                        updates.set(weight, Math.pow(-1, (int)(Math.random() * 10)) * learningRate * momentum);
+                    }
+                }
+                weightUpdates[layer][neuron] = updates;
+
+                if (dLossdBiases[layer][neuron] < 0) {
+                    biasUpdates[layer][neuron] = learningRate * momentum;
+                } else if (dLossdBiases[layer][neuron] > 0) {
+                    biasUpdates[layer][neuron] = -learningRate * momentum;
+                } else {
+                    biasUpdates[layer][neuron] = Math.pow(-1, (int)(Math.random() * 10)) * learningRate * momentum;
+                }
+            }
+        }
+        return new NetworkGradient(weightUpdates, biasUpdates);
+    }
+
+    public NetworkGradient getGradient(Vector input, Vector correct) {//TODO what value should be used to update each weight? It should be related to the derivatives themselves
 
         //all information needed to calculate necessary partial derivatives
         ForwardPropOutput output = forwardProp(input);
@@ -124,57 +180,7 @@ public class NeuralNetwork implements NetworkConstants {
         //derivatives of the loss with respect to each bias - not verified yet
         Double[][] dLossdBiases = getBiasDWRTLoss(dLossdActivations, dActivationsdBias);
 
-
-//        for (int i = 0; i < dLossdWeights.length; i++) {
-//            System.out.println(Arrays.toString(dLossdWeights[i]));
-//        }
-
-        //Update all weights and biases
-//        System.out.print("Loss before weight updates: ");
-//        double lossi = computeLoss(prediction, correct);
-//        System.out.println(lossi);
-
-        for (int layerIndex = 0; layerIndex < layers; layerIndex++) {
-            for (int neuronIndex = 0; neuronIndex < network.get(layerIndex).length(); neuronIndex++) {
-
-                Perceptron neuron = network.get(layerIndex).get(neuronIndex);
-
-                for (int weightIndex = 0; weightIndex < network.get(layerIndex).get(neuronIndex).getWeights().length(); weightIndex++) {
-
-                    double weightSlope = dLossdWeights[layerIndex][neuronIndex].get(weightIndex);
-
-                    //update transformations to induce change through dx/dy, not dy/dx where y=loss, x=weights vector
-                    if (weightSlope > 0) {
-                        neuron.updateWeight(weightIndex, neuron.getWeights().get(weightIndex) - (-0.01) * (1 / weightSlope));
-                    } else if (weightSlope < 0) {
-                        neuron.updateWeight(weightIndex, neuron.getWeights().get(weightIndex) + (-0.01) * (1 / weightSlope));
-                    }
-
-//                    System.out.print("Derivative of loss wrt this one weight: ");
-//                    System.out.println(weightSlope);
-                }
-
-                double biasSlope = dLossdBiases[layerIndex][neuronIndex];
-
-                //update transformations to induce change through dx/dy, not dy/dx where y=loss, x=weights vector
-                if (biasSlope > 0) {
-//                    neuron.updateBias(neuron.getBias() - (-0.01) * (1/biasSlope));
-                    neuron.updateBias(neuron.getBias() - 0.001);
-                } else if (biasSlope < 0) {
-//                    neuron.updateBias(neuron.getBias() + (-0.01) * (1 / biasSlope));
-                    neuron.updateBias(neuron.getBias() + 0.001);
-                }
-            }
-        }
-
-//        ForwardPropOutput newOutput = forwardProp(input);
-//
-//        System.out.print("Loss after weight updates: ");
-//        double lossf = computeLoss(newOutput.getResultant(), correct);
-//        System.out.println(lossf);
-//
-//        System.out.print("difference: ");
-//        System.out.println(lossf - lossi);
+        return new NetworkGradient(dLossdWeights, dLossdBiases);
     }
 
     //Finds the derivative of each neuron's activation with respect to every weight within the neuron.
@@ -353,5 +359,25 @@ public class NeuralNetwork implements NetworkConstants {
 
     public Layer getLayer(int i) {
         return network.get(i);
+    }
+
+    public int numLayers() {return layers;}
+
+    public static class NetworkGradient {
+        Vector[][] dLossdWeights;
+        Double[][] dLossdBiases;
+
+        public NetworkGradient(Vector[][] dLossdWeights, Double[][] dLossdBiases) {
+            this.dLossdBiases = dLossdBiases;
+            this.dLossdWeights = dLossdWeights;
+        }
+
+        public Vector[][] getdLossdWeights() {
+            return dLossdWeights;
+        }
+
+        public Double[][] getdLossdBiases() {
+            return dLossdBiases;
+        }
     }
 }

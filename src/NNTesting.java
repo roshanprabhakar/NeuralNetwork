@@ -1,64 +1,55 @@
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
 
 public class NNTesting implements NetworkConstants {
 
     public static void main(String[] args) {
 
-//        Vector actual = new Vector(new double[]{5, 1});
-//        Vector input = new Vector(new double[]{2});
+        Vector actual = new Vector(new double[]{0.5, 1});
+        Vector input = new Vector(new double[]{-1, -0.5});
 
-        IrisDataHandler handler = new IrisDataHandler("TestData.txt");
-        ArrayList<IrisData> pairings = handler.getData();
+//        IrisDataHandler handler = new IrisDataHandler("TestData.txt");
+//        ArrayList<IrisData> pairings = handler.getData();
         
         //Iris input data is of length 4
-        NeuralNetwork network = new NeuralNetwork(4, 1, 3); //num output ignored for now
+        NeuralNetwork network = new NeuralNetwork(2, 2, 2); //num output ignored for now
+        network.train(input, actual);
 
-        for (int i = 0; i < 100; i++) {
-            Collections.shuffle(pairings);
-            for (IrisData data : pairings) {
-                network.train(data.getInput(), data.getOutput());
-            }
+        System.exit(0);
+
+        System.out.println("The network");
+        network.display();
+
+        NeuralNetwork.NetworkGradient gradient = network.getGradient(input, actual);
+        NeuralNetwork.NetworkGradient updateVector = network.getUpdateVector(gradient, 0.001);
+
+        Vector[][] dLossdWeights = gradient.getdLossdWeights();
+
+        System.out.println();
+        System.out.println("Calculated weight derivatives");
+        for (Vector[] layer : dLossdWeights) {
+            System.out.println(Arrays.toString(layer));
         }
 
-        for (IrisData data : pairings) {
-            System.out.println();
-            System.out.println("---------------");
-            System.out.println("input: " + data.getInput());
-            System.out.println("label: " + data.getOutput());
-            System.out.println("predicted: " + network.forwardProp(data.getInput()).getResultant());
-            System.out.println("---------------");
-            System.out.println();
+        int layer = 1;
+        int neuron = 0;
+        int weight = 0;
+        double step = 0.0000001;
+
+        System.out.println();
+        System.out.println("Derivative of Loss with respect to specified weight through gradient approximation");
+        double gradientApprox = network.getApproximateLossDerivative(layer, neuron, weight, input, actual, step);
+        System.out.println(gradientApprox);
+
+        System.out.println();
+        System.out.println("Difference");
+        System.out.println(Math.abs(gradientApprox - dLossdWeights[layer][neuron].get(weight)));
+
+        System.out.println();
+        System.out.println("Weights update vector");
+        for (int i = 0; i < updateVector.getdLossdWeights().length; i++) {
+            System.out.println(Arrays.toString(updateVector.getdLossdWeights()[i]));
         }
 
-//        System.out.println("The network: ");
-//        network.display();
-
-//        System.out.println();
-//        System.out.println("Appropriate weight derivatives: ");
-//        network.train(input, actual);
-//
-//        System.out.println();
-//        System.out.println("Derivative of Loss with respect to specified weight through gradient approximation");
-//        System.out.println(network.getApproximateLossDerivative(0, 0, 0, input, actual, 0.00001));
-
-
-
-
-//        network.train(input, actual);
-
-
-//        for (int epoch = 0; epoch < 1; epoch++) {
-//            Collections.shuffle(pairings);
-//            for (IrisData pairing : pairings) {
-//                network.train(pairing.getInput(), pairing.getOutput());
-//            }
-//        }
-
-//        System.out.println();
-//        System.out.println(pairings.get(18).getOutput());
-//        System.out.println(network.forwardProp(pairings.get(0).getInput()).getResultant());
-//
         System.exit(0);
 
     }
