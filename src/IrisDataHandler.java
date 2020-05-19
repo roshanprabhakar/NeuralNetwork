@@ -13,21 +13,23 @@ public class IrisDataHandler {
         this.lines = getLines(filepath);
     }
 
-    public HashMap<String, ArrayList<IrisData>> getData(double percentTraining) {
+    public HashMap<String, ArrayList<NetworkData>> getData(double percentTraining) {
         Vector[] input = getInputData();
         Vector[] output = getOutputData();
-        ArrayList<IrisData> out = new ArrayList<>();
+        ArrayList<NetworkData> out = new ArrayList<>();
         for (int i = 0; i < input.length; i++) {
-            out.add(new IrisData(input[i], output[i]));
+            out.add(new NetworkData(input[i], output[i]));
         }
         Collections.shuffle(out);
-        HashMap<String, ArrayList<IrisData>> split = new HashMap<>();
-        ArrayList<IrisData> training = new ArrayList<>();
-        ArrayList<IrisData> testing = new ArrayList<>();
+        HashMap<String, ArrayList<NetworkData>> split = new HashMap<>();
+        ArrayList<NetworkData> training = new ArrayList<>();
+        ArrayList<NetworkData> testing = new ArrayList<>();
         for (int i = 0; i < out.size(); i++) {
             if (i < out.size() * percentTraining) training.add(out.get(i));
             else testing.add(out.get(i));
         }
+        Collections.shuffle(training);
+        Collections.shuffle(testing);
         split.put("training", training);
         split.put("testing", testing);
         return split;
@@ -52,11 +54,11 @@ public class IrisDataHandler {
             String[] dataPoint = lines.get(i).split(",");
             double[] output = new double[3];
             if (dataPoint[4].equals("Iris-setosa")) {
-                output = new double[]{1,0,0};
+                output = new double[]{1,0,0,0,0,0,0,0,0};
             } else if (dataPoint[4].equals("Iris-virginica")) {
-                output = new double[]{0,1,0};
+                output = new double[]{0,0,0,0,1,0,0,0,0};
             } else if (dataPoint[4].equals("Iris-versicolor")) {
-                output = new double[]{0,0,1};
+                output = new double[]{0,0,0,0,0,0,0,0,1};
             }
             outputData[i] = new Vector(output);
         }

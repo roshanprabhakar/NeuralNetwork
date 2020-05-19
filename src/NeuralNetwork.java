@@ -1,10 +1,7 @@
 import java.util.ArrayList;
 
 //TODO write output layer calculations with neuron counts different than those of hidden layers
-//TODO write gradient checking:
-//      - compute pass starting on any neuron, ending on any neuron
-//      - add a really h, forward pass again
-//      - use the change in output neuron to determine an approximation for the derivative
+//TODO write gradient accelerated descent with only differential update given to each data point, instead of the cumulative update per data point
 
 public class NeuralNetwork implements NetworkConstants {
 
@@ -82,26 +79,43 @@ public class NeuralNetwork implements NetworkConstants {
         return (finalLoss - initialLoss) / h;
     }
 
-    //TODO implement updates with momentum
-    //TODO the momentum is equal to 2 * (the sigmoid of the magnitude of the derivative of the loss - 0.5)
-    public void train(Vector input, Vector actual) {
 
-//        ForwardPropOutput initialPass = forwardProp(input);
-//        System.out.println("initial loss: " + computeLoss(initialPass.getResultant(), actual));
-
-        double loss;
+    public void train(ArrayList<NetworkData> trainingData) {
         double momentum = 1;
-        while (momentum > 0.001) {
-            NetworkGradient trainingGradient = getGradient(input, actual);
-            momentum = 2 * (Perceptron.sigmoid(getGradientMagnitude(trainingGradient)) - 0.5);
-            NetworkGradient updateVector = getUpdateVector(trainingGradient, momentum);
-            updateWeightsAndBiases(updateVector);
-            loss = computeLoss(forwardProp(input).getResultant(), actual);
-//            System.out.println(momentum);
+        while (true) {
+            for (NetworkData data : trainingData) {
+                momentum = train(data.getInput(), data.getOutput(), momentum);
+                if (momentum < 0.01) return;
+            }
         }
+    }
 
-//        ForwardPropOutput finalPass = forwardProp(input);
-//        System.out.println("final loss: " + computeLoss(finalPass.getResultant(), actual));
+    //returns the appropriate momentum
+    public double train(Vector input, Vector actual, double momentum) {
+
+        NetworkGradient trainingGradient = getGradient(input, actual);
+        NetworkGradient updateGradient = getUpdateVector(trainingGradient, momentum);
+        updateWeightsAndBiases(updateGradient);
+        return 2 * (Perceptron.sigmoid(getGradientMagnitude(trainingGradient)) - 0.5);
+
+//        double loss;
+//        double momentum = 1;
+//        while (momentum > 0.001) {
+//            NetworkGradient trainingGradient = getGradient(input, actual);
+//            momentum = 2 * (Perceptron.sigmoid(getGradientMagnitude(trainingGradient)) - 0.5);
+//            NetworkGradient updateVector = getUpdateVector(trainingGradient, momentum);
+//            updateWeightsAndBiases(updateVector);
+//            loss = computeLoss(forwardProp(input).getResultant(), actual);
+//        }
+//
+//        System.out.println("--------------------");
+//        System.out.println("modification and test made with same data point");
+//        System.out.println("a: " + actual);
+//        System.out.println("p: " + forwardProp(input).getResultant());
+//        System.out.println("input: " + input);
+//        System.out.println("loss: " + NeuralNetwork.computeLoss(forwardProp(input).getResultant(), actual));
+//        System.out.println("--------------------");
+
     }
 
     public double getGradientMagnitude(NetworkGradient networkOutput) {
@@ -127,7 +141,7 @@ public class NeuralNetwork implements NetworkConstants {
 
                 Perceptron perceptron = network.get(layer).get(neuron);
 
-                for (int weight = 0; weight < network.get(layer).length(); weight++) {
+                for (int weight = 0; weight < perceptron.getWeights().length(); weight++) {
                     perceptron.getWeights().set(weight, perceptron.getWeights().get(weight) + updateVector.getdLossdWeights()[layer][neuron].get(weight));
                 }
                 perceptron.updateBias(perceptron.getBias() + updateVector.getdLossdBiases()[layer][neuron]);

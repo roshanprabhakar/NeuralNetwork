@@ -1,11 +1,11 @@
 public class NetworkData {
 
     private Vector input;
-    private Vector correct;
+    private Vector output;
 
     public NetworkData(Vector input, Vector correct) {
         this.input = input;
-        this.correct = correct;
+        this.output = correct;
     }
 
     public Vector getInput() {
@@ -16,11 +16,11 @@ public class NetworkData {
         this.input = input;
     }
 
-    public Vector getCorrect() {
-        return correct;
+    public Vector getOutput() {
+        return output;
     }
 
-    public void setCorrect(Vector correct) {
-        this.correct = correct;
+    public void setOutput(Vector output) {
+        this.output = output;
     }
 }
