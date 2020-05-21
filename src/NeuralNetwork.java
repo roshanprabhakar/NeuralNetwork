@@ -1,8 +1,6 @@
 import java.util.ArrayList;
 
 //TODO write output layer calculations with neuron counts different than those of hidden layers
-//TODO write gradient accelerated descent with only differential update given to each data point, instead of the cumulative update per data point
-
 public class NeuralNetwork implements NetworkConstants {
 
     private ArrayList<Layer> network;
@@ -24,6 +22,11 @@ public class NeuralNetwork implements NetworkConstants {
         this.layers = numHiddenLayers;
     }
 
+    //TODO implement this, adjust network class fields accordingly
+    public NeuralNetwork(ArrayList<Integer> layerSizes, int inputsize) {
+
+    }
+
     //Customized for sigmoid activations active in every neuron
     public ForwardPropOutput forwardProp(Vector input) {
         Vector[] matrix = new Vector[network.size()];
@@ -33,7 +36,6 @@ public class NeuralNetwork implements NetworkConstants {
             passed = network.get(i).activations(passed);
             matrix[i] = passed.copy();
         }
-
         return new ForwardPropOutput(passed, matrix);
     }
 
@@ -79,17 +81,26 @@ public class NeuralNetwork implements NetworkConstants {
         return (finalLoss - initialLoss) / h;
     }
 
-    public void train(ArrayList<NetworkData> trainingData) {
+    //if loss doesn't change by a lot, then exit
+    public void train(ArrayList<NetworkData> trainingData, double lossSeparator) {
         double momentum = 1;
-        while (momentum > 0.1) {
+//        double oldLoss = 2;
+//        double newLoss = 1;
+//        while (momentum > 0.01 && oldLoss - newLoss > 0.001) {
+
+        double lossf = 0;
+        double lossi = 1;
+        while (momentum > 0.01 && lossi - lossf > lossSeparator) {
+            lossi = cumulativeLoss(trainingData, this);
             NetworkGradient cumulativeLossGradient = new NetworkGradient();
             for (NetworkData data : trainingData) {
                 cumulativeLossGradient.add(getGradient(data.getInput(), data.getOutput()));
             }
             NetworkGradient updateGradient = getUpdateVector(cumulativeLossGradient, momentum);
             updateWeightsAndBiases(updateGradient);
-            momentum = getGradientMagnitude(cumulativeLossGradient);
-            System.out.println("loss: " + cumulativeLoss(trainingData, this));
+            momentum = Perceptron.sigmoid(16 * getGradientMagnitude(cumulativeLossGradient)) - 0.5;
+            lossf = cumulativeLoss(trainingData, this);
+//            System.out.println("difference: " + (lossi - lossf));
         }
     }
 

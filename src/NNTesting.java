@@ -39,17 +39,17 @@ public class NNTesting implements NetworkConstants {
 //        }
 
         IrisDataHandler handler = new IrisDataHandler("TestData.csv");
-        HashMap<String, ArrayList<NetworkData>> pairings = handler.getData(0.6);
+        HashMap<String, ArrayList<NetworkData>> pairings = handler.getData(0.9);
 
 //        Vector trainingInput = new Vector(new double[]{7.7, 2.6, 6.9, 2.3});
 //        Vector output = new Vector(new double[]{0, 1, 0});
 
         NeuralNetwork irisNetwork = new NeuralNetwork(4, 3, 1);
 
-        for (int epoch = 0; epoch < 1; epoch++) {
+//        for (int epoch = 0; epoch < 2; epoch++) {
 //            Collections.shuffle(pairings.get("training"));
-            irisNetwork.train(pairings.get("training"));
-        }
+            irisNetwork.train(pairings.get("training"), 0.0001);
+//        }
 
         irisNetwork.display();
 
@@ -70,7 +70,7 @@ public class NNTesting implements NetworkConstants {
         }
         System.out.println("Summary: ");
         System.out.println("% Correct: " + correct / pairings.get("testing").size());
-        System.out.println("Cumulative loss: " + evaluateNN(irisNetwork, pairings.get("testing")));
+        System.out.println("Cumulative loss: " + NeuralNetwork.cumulativeLoss(pairings.get("testing"), irisNetwork));
 
         System.exit(0);
 
@@ -118,16 +118,5 @@ public class NNTesting implements NetworkConstants {
 //
 //        System.exit(0);
 
-    }
-
-    public static double evaluateNN(NeuralNetwork network, ArrayList<NetworkData> testDataList) {
-        double sum = 0;
-        for (NetworkData testData : testDataList) {
-            Vector real = testData.getOutput();
-            Vector predicted = network.forwardProp(testData.getInput()).getResultant();
-            double loss = NeuralNetwork.computeLoss(predicted, real);
-            sum += loss;
-        }
-        return sum;
     }
 }
