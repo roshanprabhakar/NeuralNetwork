@@ -44,11 +44,12 @@ public class NNTesting implements NetworkConstants {
 //        Vector trainingInput = new Vector(new double[]{7.7, 2.6, 6.9, 2.3});
 //        Vector output = new Vector(new double[]{0, 1, 0});
 
-        NeuralNetwork irisNetwork = new NeuralNetwork(4, 3, 1);
+        NeuralNetwork irisNetwork2 = new NeuralNetwork(4, 3, 1);
+        NeuralNetwork irisNetwork = new NeuralNetwork(new int[]{2,3}, 4);
 
 //        for (int epoch = 0; epoch < 2; epoch++) {
 //            Collections.shuffle(pairings.get("training"));
-            irisNetwork.train(pairings.get("training"), 0.0001);
+            irisNetwork.train(pairings.get("training"), 0.00001);
 //        }
 
         irisNetwork.display();
