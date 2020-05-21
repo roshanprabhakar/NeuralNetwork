@@ -4,9 +4,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.function.DoubleToIntFunction;
 
-
-//TODO Question: should cumulative or differential gradient descent be used?
-//TODO Potential Solution: implement a gradient calculation that takes the cumulative loss of the training set as the loss output, instead of individual losses for each training point
 public class NNTesting implements NetworkConstants {
 
     public static void main(String[] args) {
@@ -45,7 +42,7 @@ public class NNTesting implements NetworkConstants {
 //        Vector output = new Vector(new double[]{0, 1, 0});
 
         NeuralNetwork irisNetwork2 = new NeuralNetwork(4, 3, 1);
-        NeuralNetwork irisNetwork = new NeuralNetwork(new int[]{2,3}, 4);
+        NeuralNetwork irisNetwork = new NeuralNetwork(new int[]{4,3}, 4);
 
 //        for (int epoch = 0; epoch < 2; epoch++) {
 //            Collections.shuffle(pairings.get("training"));
