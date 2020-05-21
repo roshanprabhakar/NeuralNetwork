@@ -41,7 +41,16 @@ public class IrisDataHandler {
             String[] dataPoint = lines.get(i).split(",");
             double[] input = new double[4];
             for (int j = 0; j < 4; j++) {
-                input[j] = Double.parseDouble(dataPoint[j]);
+                if (j == 0) {
+                    input[j] = 2.8 * Perceptron.sigmoid(Double.parseDouble(dataPoint[j]) - 5);
+                } else if (j == 1) {
+                    input[j] = 2.8 * Perceptron.sigmoid(Double.parseDouble(dataPoint[j]) - 2.5);
+                } else if (j == 2) {
+                    input[j] = 2.8 * Perceptron.sigmoid(Double.parseDouble(dataPoint[j]) - 3.5);
+                } else {
+                    input[j] = 2.8 * Perceptron.sigmoid(3.5 * Double.parseDouble(dataPoint[j]) - 4);
+                }
+//                input[j] = Double.parseDouble(dataPoint[j]);
             }
             inputData[i] = new Vector(input);
         }
@@ -54,11 +63,14 @@ public class IrisDataHandler {
             String[] dataPoint = lines.get(i).split(",");
             double[] output = new double[3];
             if (dataPoint[4].equals("Iris-setosa")) {
-                output = new double[]{1,0,0,0,0,0,0,0,0};
+//                output = new double[]{1,0,0,0,0,0,0,0,0};
+                output = new double[]{1,0,0};
             } else if (dataPoint[4].equals("Iris-virginica")) {
-                output = new double[]{0,0,0,0,1,0,0,0,0};
+//                output = new double[]{0,0,0,0,1,0,0,0,0};
+                output = new double[]{0,1,0};
             } else if (dataPoint[4].equals("Iris-versicolor")) {
-                output = new double[]{0,0,0,0,0,0,0,0,1};
+//                output = new double[]{0,0,0,0,0,0,0,0,1};
+                output = new double[]{0,0,1};
             }
             outputData[i] = new Vector(output);
         }

@@ -8,7 +8,7 @@ public class Main implements NetworkConstants {
      */
     public static void main(String[] args) throws InterruptedException {
 
-        DataSet set = new DataSet("TestData.txt");
+        DataSet set = new DataSet("TestData.csv");
 //        ArrayList<Data> data = set.getData(set.getDataSize(), 0);
         ArrayList<Data> data = set.getData(2,0);
         Perceptron perceptron = new Perceptron(DATA_LENGTH, TARGET, LEARNING_RATE, EPOCHS, POWER, false);
@@ -18,18 +18,18 @@ public class Main implements NetworkConstants {
 
 //        Thread.sleep(1000000);
 
-//        DataSet set = new DataSet("TestData.txt");
+//        DataSet set = new DataSet("TestData.csv");
 //        Perceptron perceptron = new Perceptron(DATA_LENGTH, TARGET, LEARNING_RATE, EPOCHS, POWER);
 //        perceptron.train(set.getData(set.getDataSize(), 0));
 //        System.out.println(perceptron.loss(set.getData(set.getDataSize(), 0)));
 //        System.out.println(perceptron.correct(set.getData(set.getDataSize(), 0)));
 //        perceptron.visualizeLoss(set.getData(set.getDataSize(), 0));
 
-//        DataSet set = new DataSet("TestData.txt");
+//        DataSet set = new DataSet("TestData.csv");
 //        System.out.println(isLinearlySeparable(set.getData(set.getDataSize(), 0), TARGET));
 
 
-//        DataSet set = new DataSet("TestData.txt");
+//        DataSet set = new DataSet("TestData.csv");
 //        ArrayList<Data> data = set.getData(DATA_LENGTH, 0);
 //        Graph graph = new Graph(data, NUM_DATA_GROUPS);
 //
@@ -53,7 +53,7 @@ public class Main implements NetworkConstants {
 //        Thread.sleep(100000);
 //        System.exit(0);
 
-//        DataSet set = new DataSet("TestData.txt");
+//        DataSet set = new DataSet("TestData.csv");
 //        Perceptron perceptron = new Perceptron(DATA_LENGTH, TARGET, LEARNING_RATE, EPOCHS, POWER);
 //        perceptron.train(set.getData(2, 0));
 //        System.out.println("--------------------");

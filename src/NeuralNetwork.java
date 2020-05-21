@@ -79,43 +79,18 @@ public class NeuralNetwork implements NetworkConstants {
         return (finalLoss - initialLoss) / h;
     }
 
-
     public void train(ArrayList<NetworkData> trainingData) {
         double momentum = 1;
-        while (true) {
+        while (momentum > 0.1) {
+            NetworkGradient cumulativeLossGradient = new NetworkGradient();
             for (NetworkData data : trainingData) {
-                momentum = train(data.getInput(), data.getOutput(), momentum);
-                if (momentum < 0.01) return;
+                cumulativeLossGradient.add(getGradient(data.getInput(), data.getOutput()));
             }
+            NetworkGradient updateGradient = getUpdateVector(cumulativeLossGradient, momentum);
+            updateWeightsAndBiases(updateGradient);
+            momentum = getGradientMagnitude(cumulativeLossGradient);
+            System.out.println("loss: " + cumulativeLoss(trainingData, this));
         }
-    }
-
-    //returns the appropriate momentum
-    public double train(Vector input, Vector actual, double momentum) {
-
-        NetworkGradient trainingGradient = getGradient(input, actual);
-        NetworkGradient updateGradient = getUpdateVector(trainingGradient, momentum);
-        updateWeightsAndBiases(updateGradient);
-        return 2 * (Perceptron.sigmoid(getGradientMagnitude(trainingGradient)) - 0.5);
-
-//        double loss;
-//        double momentum = 1;
-//        while (momentum > 0.001) {
-//            NetworkGradient trainingGradient = getGradient(input, actual);
-//            momentum = 2 * (Perceptron.sigmoid(getGradientMagnitude(trainingGradient)) - 0.5);
-//            NetworkGradient updateVector = getUpdateVector(trainingGradient, momentum);
-//            updateWeightsAndBiases(updateVector);
-//            loss = computeLoss(forwardProp(input).getResultant(), actual);
-//        }
-//
-//        System.out.println("--------------------");
-//        System.out.println("modification and test made with same data point");
-//        System.out.println("a: " + actual);
-//        System.out.println("p: " + forwardProp(input).getResultant());
-//        System.out.println("input: " + input);
-//        System.out.println("loss: " + NeuralNetwork.computeLoss(forwardProp(input).getResultant(), actual));
-//        System.out.println("--------------------");
-
     }
 
     public double getGradientMagnitude(NetworkGradient networkOutput) {
@@ -352,6 +327,14 @@ public class NeuralNetwork implements NetworkConstants {
         return biasDWRTLoss;
     }
 
+    public static double cumulativeLoss(ArrayList<NetworkData> testSet, NeuralNetwork neuralNetwork) {
+        double out = 0;
+        for (NetworkData data : testSet) {
+            out += computeLoss(neuralNetwork.forwardProp(data.getInput()).getResultant(), data.getOutput());
+        }
+        return out;
+    }
+
     public static double computeLoss(Vector predicted, Vector actual) {
         double sum = 0;
         assert predicted.length() == actual.length();
@@ -397,12 +380,30 @@ public class NeuralNetwork implements NetworkConstants {
     public int numLayers() {return layers;}
 
     public static class NetworkGradient {
-        Vector[][] dLossdWeights;
-        Double[][] dLossdBiases;
+
+        private Vector[][] dLossdWeights;
+        private Double[][] dLossdBiases;
 
         public NetworkGradient(Vector[][] dLossdWeights, Double[][] dLossdBiases) {
             this.dLossdBiases = dLossdBiases;
             this.dLossdWeights = dLossdWeights;
+        }
+
+        public NetworkGradient() {
+        }
+
+        public void add(NetworkGradient other) {
+            if (dLossdWeights == null || dLossdBiases == null) {
+                dLossdWeights = other.getdLossdWeights();
+                dLossdBiases = other.getdLossdBiases();
+            } else {
+                for (int layer = 0; layer < dLossdWeights.length; layer++) {
+                    for (int neuron = 0; neuron < dLossdWeights[layer].length; neuron++) {
+                        this.dLossdBiases[layer][neuron] += other.dLossdBiases[layer][neuron];
+                        this.dLossdWeights[layer][neuron].add(other.dLossdWeights[layer][neuron]);
+                    }
+                }
+            }
         }
 
         public Vector[][] getdLossdWeights() {

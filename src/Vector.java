@@ -45,8 +45,10 @@ public class Vector {
     }
 
     public Vector add(Vector other) {
-        Vector copy = this.copy();
-        return add(copy, other);
+        for (int i = 0; i < vector.length; i++) {
+            vector[i] += other.get(i);
+        }
+        return this;
     }
 
     public void concat(Vector other) {
@@ -64,12 +66,8 @@ public class Vector {
     }
 
     public Vector subtract(Vector other) {
-        Vector copy = this.copy();
-        return subtract(copy, other);
-    }
-
-    public static Vector subtract(Vector v, Vector p) {
-        return v.add(p.multiplyScalar(-1));
+        this.add(other.multiplyScalar(-1));
+        return this;
     }
 
     public double dotProduct(Vector other) {
@@ -112,20 +110,6 @@ public class Vector {
         return loss * (0.5);
     }
 
-//    public double cross(Vector other, int degree) {
-//        return cross(this, other, degree);
-//    }
-//
-//    public static double cross(Vector weights, Vector test, int degree) {
-//        double sum = 0;
-//        for (int i = 0; i < weights.size(); i++) {
-//            for (int pow = 1; pow <= degree; pow++) {
-//                sum += Math.pow(weights.get(i), pow) * test.get(i);
-//            }
-//        }
-//        return sum;
-//    }
-
     public Vector copy() {
         return new Vector(vector.clone());
     }
@@ -149,5 +133,26 @@ public class Vector {
         return out.toString();
     }
 
+    public Vector getNetworkOutputVector() {
+        double max = Integer.MIN_VALUE;
+        for (double value : this.getVector()) {
+            if (value > max) max = value;
+        }
+        Vector out = new Vector(this.length());
+        for (int i = 0; i < this.length(); i++) {
+            if (this.get(i) == max) {
+                out.set(i, 1);
+            }
+        }
+        return out;
+    }
+
+    public boolean equals(Vector other) {
+        assert length() == other.length();
+        for (int i = 0; i < other.length(); i++) {
+            if (get(i) != other.get(i)) return false;
+        }
+        return true;
+    }
 
 }
