@@ -1,7 +1,6 @@
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-//TODO write output layer calculations with neuron counts different than those of hidden layers
 public class NeuralNetwork implements NetworkConstants {
 
     private ArrayList<Layer> network;
@@ -18,7 +17,6 @@ public class NeuralNetwork implements NetworkConstants {
         this.inputSize = inputSize;
     }
 
-    //TODO implement this, adjust network class fields accordingly
     public NeuralNetwork(int[] layers, int inputSize) {
         network = new ArrayList<>();
         network.add(new Layer(layers[0], inputSize));
@@ -179,7 +177,7 @@ public class NeuralNetwork implements NetworkConstants {
         return new NetworkGradient(weightUpdates, biasUpdates);
     }
 
-    public NetworkGradient getGradient(Vector input, Vector correct) {//TODO what value should be used to update each weight? It should be related to the derivatives themselves
+    public NetworkGradient getGradient(Vector input, Vector correct) {
 
         //all information needed to calculate necessary partial derivatives
         ForwardPropOutput output = forwardProp(input);
