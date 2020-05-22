@@ -2,7 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c99a8ab7-ae11-4a08-a65d-1ca6657348d8" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/data/t10k-images.idx3-ubyte" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/t10k-labels.idx1-ubyte" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/train-images.idx3-ubyte" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/train-labels.idx1-ubyte" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/MnistDataReader.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/MnistMatrix.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PerceptronClassifier/Main.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/NNTesting.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/NNTesting.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/NeuralNetwork.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/NeuralNetwork.java" afterDir="false" />
     </list>
@@ -54,6 +62,13 @@
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.19321148" />
     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/another" />
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/src" />
+    </key>
   </component>
   <component name="RunManager" selected="Application.NNTesting">
     <configuration name="Main" type="Application" factoryName="Application" singleton="false" temporary="true">
@@ -149,7 +164,8 @@
       <workItem from="1590004229279" duration="988000" />
       <workItem from="1590023721946" duration="5852000" />
       <workItem from="1590043316033" duration="1379000" />
-      <workItem from="1590081351769" duration="6841000" />
+      <workItem from="1590081351769" duration="10088000" />
+      <workItem from="1590101536840" duration="7345000" />
     </task>
     <task id="LOCAL-00001" summary="improved guess method (threshed guess to above and below 0.5 (median sigmoid value))">
       <created>1573423645474</created>
@@ -305,7 +321,28 @@
       <option name="project" value="LOCAL" />
       <updated>1590044564495</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="added capability to handle layers of different dimensions">
+      <created>1590088769034</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1590088769034</updated>
+    </task>
+    <task id="LOCAL-00024" summary="resolved all todos">
+      <created>1590088867663</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1590088867663</updated>
+    </task>
+    <task id="LOCAL-00025" summary="resolved nn todos">
+      <created>1590088976322</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1590088976322</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -350,13 +387,20 @@
     <MESSAGE value="changed backprop to calculate gradient for cumulative loss instead of individual losses" />
     <MESSAGE value="added a lower bound to the decrease rate of the gradient's magnitude" />
     <MESSAGE value="added branch for implementing network w/ unfixed layer sizes" />
-    <option name="LAST_COMMIT_MESSAGE" value="added branch for implementing network w/ unfixed layer sizes" />
+    <MESSAGE value="added capability to handle layers of different dimensions" />
+    <MESSAGE value="resolved all todos" />
+    <MESSAGE value="resolved nn todos" />
+    <option name="LAST_COMMIT_MESSAGE" value="resolved nn todos" />
   </component>
   <component name="WindowStateProjectService">
     <state x="424" y="202" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1589749924128">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="424" y="202" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1589749924128" />
+    <state x="358" y="259" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1590089429837">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="358" y="259" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1440.900@0.0.1440.900" timestamp="1590089429837" />
     <state x="711" y="190" key="#com.intellij.ide.util.MemberChooser" timestamp="1589750494817">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
@@ -366,31 +410,31 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="245" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1589869806191" />
-    <state x="541" y="115" key="CommitChangelistDialog2" timestamp="1590044564365">
+    <state x="358" y="51" key="CommitChangelistDialog2" timestamp="1590088976183">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="358" y="51" key="CommitChangelistDialog2/0.0.1440.900@0.0.1440.900" timestamp="1590088976183" />
+    <state x="541" y="115" key="CommitChangelistDialog2/0.0.1920.1080@0.0.1920.1080" timestamp="1590044564365" />
+    <state width="1878" height="196" key="GridCell.Tab.0.bottom" timestamp="1590115818723">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="358" y="51" key="CommitChangelistDialog2/0.0.1440.900@0.0.1440.900" timestamp="1590024880209" />
-    <state x="541" y="115" key="CommitChangelistDialog2/0.0.1920.1080@0.0.1920.1080" timestamp="1590044564365" />
-    <state width="1398" height="156" key="GridCell.Tab.0.bottom" timestamp="1590088713796">
-      <screen x="0" y="0" width="1440" height="900" />
+    <state width="1398" height="156" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1590090951174" />
+    <state width="1878" height="196" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1590115818723" />
+    <state width="1878" height="196" key="GridCell.Tab.0.center" timestamp="1590115818721">
+      <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1398" height="156" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1590088713796" />
-    <state width="1878" height="198" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1590051867049" />
-    <state width="1398" height="156" key="GridCell.Tab.0.center" timestamp="1590088713796">
-      <screen x="0" y="0" width="1440" height="900" />
+    <state width="1398" height="156" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1590090951173" />
+    <state width="1878" height="196" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1590115818721" />
+    <state width="1878" height="196" key="GridCell.Tab.0.left" timestamp="1590115818720">
+      <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1398" height="156" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1590088713796" />
-    <state width="1878" height="198" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1590051867048" />
-    <state width="1398" height="156" key="GridCell.Tab.0.left" timestamp="1590088713796">
-      <screen x="0" y="0" width="1440" height="900" />
+    <state width="1398" height="156" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1590090951173" />
+    <state width="1878" height="196" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1590115818720" />
+    <state width="1878" height="196" key="GridCell.Tab.0.right" timestamp="1590115818722">
+      <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1398" height="156" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1590088713796" />
-    <state width="1878" height="198" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1590051867048" />
-    <state width="1398" height="156" key="GridCell.Tab.0.right" timestamp="1590088713796">
-      <screen x="0" y="0" width="1440" height="900" />
-    </state>
-    <state width="1398" height="156" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1590088713796" />
-    <state width="1878" height="198" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1590051867048" />
+    <state width="1398" height="156" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1590090951174" />
+    <state width="1878" height="196" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1590115818722" />
     <state width="1878" height="367" key="GridCell.Tab.1.bottom" timestamp="1589793097012">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
@@ -412,10 +456,10 @@
     </state>
     <state x="208" y="31" key="SettingsEditor/0.0.1440.900@0.0.1440.900" timestamp="1589432721484" />
     <state x="277" y="37" key="SettingsEditor/0.0.1920.1080@0.0.1920.1080" timestamp="1589873272021" />
-    <state x="560" y="267" key="Vcs.Push.Dialog.v2" timestamp="1590044567163">
-      <screen x="0" y="0" width="1920" height="1080" />
+    <state x="420" y="223" key="Vcs.Push.Dialog.v2" timestamp="1590088978123">
+      <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="420" y="223" key="Vcs.Push.Dialog.v2/0.0.1440.900@0.0.1440.900" timestamp="1590024882146" />
+    <state x="420" y="223" key="Vcs.Push.Dialog.v2/0.0.1440.900@0.0.1440.900" timestamp="1590088978123" />
     <state x="560" y="267" key="Vcs.Push.Dialog.v2/0.0.1920.1080@0.0.1920.1080" timestamp="1590044567163" />
     <state x="720" y="436" key="git4idea.remote.GitConfigureRemotesDialog" timestamp="1589426854027">
       <screen x="0" y="0" width="1920" height="1080" />

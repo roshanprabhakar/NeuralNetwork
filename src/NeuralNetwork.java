@@ -1,4 +1,4 @@
-import java.lang.reflect.Array;
+import javax.xml.stream.XMLInputFactory;
 import java.util.ArrayList;
 
 public class NeuralNetwork implements NetworkConstants {
@@ -6,24 +6,49 @@ public class NeuralNetwork implements NetworkConstants {
     private ArrayList<Layer> network;
     private int inputSize;
 
-    private double learningRate = 0.01;
+    //learningRate * mazMomentum = largest possible step size
+    private double learningRate;
+    private double maxMomentum;
 
-    public NeuralNetwork(int inputSize, int neuronsPerHidden, int numHiddenLayers) {
-        network = new ArrayList<>();
-        network.add(new Layer(neuronsPerHidden, inputSize));
-        for (int i = 0; i < numHiddenLayers - 1; i++) {
-            network.add(new Layer(neuronsPerHidden, neuronsPerHidden));
-        }
-        this.inputSize = inputSize;
-    }
+    //lower bounds for training
+    private double minMomentum;
+    private double lossSeparator;
 
-    public NeuralNetwork(int[] layers, int inputSize) {
+    public NeuralNetwork(int[] layers, int inputSize, double learningRate, double maxMomentum, double minMomentum, double lossSeparator) {
         network = new ArrayList<>();
         network.add(new Layer(layers[0], inputSize));
         for (int layer = 1; layer < layers.length; layer++) {
             network.add(new Layer(layers[layer], layers[layer - 1]));
         }
         this.inputSize = inputSize;
+        this.learningRate = learningRate;
+        this.maxMomentum = maxMomentum;
+        this.minMomentum = minMomentum;
+        this.lossSeparator = lossSeparator;
+    }
+
+    public NeuralNetwork(int inputSize, int neuronsPerHidden, int numHiddenLayers, double learningRate, double maxMomentum, double minMomentum, double lossSeparator) {
+        network = new ArrayList<>();
+        network.add(new Layer(neuronsPerHidden, inputSize));
+        for (int i = 0; i < numHiddenLayers - 1; i++) {
+            network.add(new Layer(neuronsPerHidden, neuronsPerHidden));
+        }
+        this.inputSize = inputSize;
+        this.learningRate = learningRate;
+        this.maxMomentum = maxMomentum;
+        this.minMomentum = minMomentum;
+        this.lossSeparator = lossSeparator;
+    }
+
+    private void reinitializeWeightsAndBiases(double scope) {
+        for (int layer = 0; layer < network.size(); layer++) {
+            for (int neuron = 0; neuron < network.get(layer).length(); neuron++) {
+                for (int weight = 0; weight < network.get(layer).get(neuron).getWeights().length(); weight++) {
+                    network.get(layer).get(neuron).getWeights().set(weight, Math.random() * scope * Math.pow(-1, (int)((Math.random())*10)));
+                }
+                network.get(layer).get(neuron).updateBias(Math.random() * scope * Math.pow(-1, (int)((Math.random())*10)));
+            }
+        }
     }
 
     //Customized for sigmoid activations active in every neuron
@@ -80,30 +105,31 @@ public class NeuralNetwork implements NetworkConstants {
         return (finalLoss - initialLoss) / h;
     }
 
-    //if loss doesn't change by a lot, then exit
-    public void train(ArrayList<NetworkData> trainingData, double lossSeparator) {
+    //training when recalculating loss is not feasible
+    public void train(ArrayList<NetworkData> trainingData) {
         double momentum = 1;
-//        double oldLoss = 2;
-//        double newLoss = 1;
-//        while (momentum > 0.01 && oldLoss - newLoss > 0.001) {
-
+        int epoch = 0;
         double lossf = 0;
         double lossi = 1;
-        while (momentum > 0.01 && lossi - lossf > lossSeparator) {
+        while (momentum > minMomentum && lossi - lossf > lossSeparator) {
             lossi = cumulativeLoss(trainingData, this);
             NetworkGradient cumulativeLossGradient = new NetworkGradient();
             for (NetworkData data : trainingData) {
                 cumulativeLossGradient.add(getGradient(data.getInput(), data.getOutput()));
             }
-//            System.out.println(cumulativeLossGradient.getdLossdWeights());
-//            System.out.println(cumulativeLossGradient.getdLossdBiases());
             NetworkGradient updateGradient = getUpdateVector(cumulativeLossGradient, momentum);
-//            System.out.println(updateGradient.getdLossdWeights());
-//            System.out.println(updateGradient.getdLossdBiases());
             updateWeightsAndBiases(updateGradient);
-            momentum = Perceptron.sigmoid(16 * getGradientMagnitude(cumulativeLossGradient)) - 0.5;
+            double gradientMagnitude = getGradientMagnitude(cumulativeLossGradient);
+            momentum = 2 * maxMomentum * (Perceptron.sigmoid(gradientMagnitude) - 0.5);
+            if (momentum < minMomentum && epoch < 10) {
+                reinitializeWeightsAndBiases(10);
+                epoch = 0;
+            }
             lossf = cumulativeLoss(trainingData, this);
-//            System.out.println("difference: " + (lossi - lossf));
+            epoch++;
+//            System.out.println("loss: " + lossf);
+//            System.out.println("|gradient|: " + gradientMagnitude);
+//            System.out.println("momentum: " + momentum);
         }
     }
 
@@ -158,7 +184,7 @@ public class NeuralNetwork implements NetworkConstants {
                     } else if (dLossdWeights.get(layer).get(neuron).get(weight) > 0) {
                         updates.set(weight, -learningRate * momentum);
                     } else {
-                        updates.set(weight, Math.pow(-1, (int)(Math.random() * 10)) * learningRate * momentum);
+                        updates.set(weight, Math.pow(-1, (int) (Math.random() * 10)) * learningRate * momentum);
                     }
                 }
                 thisLayerW.add(updates);
@@ -168,7 +194,7 @@ public class NeuralNetwork implements NetworkConstants {
                 } else if (dLossdBiases.get(layer).get(neuron) > 0) {
                     thisLayerB.add(-learningRate * momentum);
                 } else {
-                    thisLayerB.add(Math.pow(-1, (int)(Math.random() * 10)) * learningRate * momentum);
+                    thisLayerB.add(Math.pow(-1, (int) (Math.random() * 10)) * learningRate * momentum);
                 }
             }
             weightUpdates.add(thisLayerW);
@@ -405,7 +431,9 @@ public class NeuralNetwork implements NetworkConstants {
         return network.get(i);
     }
 
-    public int numLayers() {return network.size();}
+    public int numLayers() {
+        return network.size();
+    }
 
     public static class NetworkGradient {
 

@@ -1,3 +1,6 @@
+import org.jfree.chart.renderer.xy.VectorRenderer;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -6,7 +9,64 @@ import java.util.function.DoubleToIntFunction;
 
 public class NNTesting implements NetworkConstants {
 
-    public static void main(String[] args) {
+
+    private static void printMnistMatrix(final MnistMatrix matrix) {
+        System.out.println("label: " + matrix.getLabel());
+        for (int r = 0; r < matrix.getNumberOfRows(); r++) {
+            for (int c = 0; c < matrix.getNumberOfColumns(); c++) {
+                System.out.print(matrix.getValue(r, c) + " ");
+            }
+            System.out.println();
+        }
+    }
+
+    private static ArrayList<NetworkData> parseMnistMatrices(MnistMatrix[] data, double percent) {
+        ArrayList<NetworkData> out = new ArrayList<>();
+        for (int i = 0; i < percent * data.length; i++) {
+            MnistMatrix dataPiece = data[i];
+            Vector input = new Vector(dataPiece.getSingularized());
+            Vector output = new Vector(10);
+            output.set(dataPiece.getLabel(), 1);
+            out.add(new NetworkData(input, output));
+        }
+        return out;
+    }
+
+    public static void main(String[] args) throws IOException {
+
+//        System.out.println("parsing mnist set...");
+//        MnistMatrix[] mnistMatrix = new MnistDataReader().readData("data/t10k-images.idx3-ubyte", "data/t10k-labels.idx1-ubyte");
+//        ArrayList<NetworkData> data = parseMnistMatrices(mnistMatrix, 0.005);
+//        System.out.println("...finished parsing mnist data");
+//
+//        NeuralNetwork mnistNetwork = new NeuralNetwork(new int[]{2, 5, 10}, 28 * 28, 0.001);
+//        System.out.println("training...");
+//        mnistNetwork.train(data, 0.01);
+//        System.out.println("...training complete");
+////        mnistNetwork.display();
+//
+//        //testing network on mnist data
+//        double correct = 0;
+//        for (NetworkData dataPiece : data) {
+//            System.out.println("--------------");
+////            System.out.println("i: " + dataPiece.getInput());
+//            ForwardPropOutput output = mnistNetwork.forwardProp(dataPiece.getInput());
+//            System.out.println("a: " + dataPiece.getOutput());
+//            System.out.println("n: " + output.getResultant().getNetworkOutputVector());
+//            System.out.println("p: " + output.getResultant());
+//            System.out.println("l: " + NeuralNetwork.computeLoss(output.getResultant(), dataPiece.getOutput()));
+//            System.out.println("--------------");
+//            if (output.getResultant().getNetworkOutputVector().equals(dataPiece.getOutput())) {
+//                correct++;
+//            }
+//        }
+//        mnistNetwork.display();
+//
+//        System.out.println("Summary");
+//        System.out.println("final loss: " + NeuralNetwork.cumulativeLoss(data, mnistNetwork));
+//        System.out.println("% correct: " + (correct / data.size()) + " : " + (int)correct + "/" + data.size());
+//
+//        System.exit(0);
 
 ////        Vector actual = new Vector(new double[]{0.5, 1});
 ////        Vector input = new Vector(new double[]{-1, -0.5});
@@ -33,7 +93,8 @@ public class NNTesting implements NetworkConstants {
 //            System.out.println("a: " + data.getOutput());
 //            System.out.println("l: " + NeuralNetwork.computeLoss(output.getResultant(), data.getOutput()));
 //            System.out.println("--------------");
-//        }
+//
+// -------------------------------------------------------------------------------------------------------------------
 
         IrisDataHandler handler = new IrisDataHandler("TestData.csv");
         HashMap<String, ArrayList<NetworkData>> pairings = handler.getData(0.9);
@@ -41,12 +102,11 @@ public class NNTesting implements NetworkConstants {
 //        Vector trainingInput = new Vector(new double[]{7.7, 2.6, 6.9, 2.3});
 //        Vector output = new Vector(new double[]{0, 1, 0});
 
-        NeuralNetwork irisNetwork2 = new NeuralNetwork(4, 3, 1);
-        NeuralNetwork irisNetwork = new NeuralNetwork(new int[]{4, 4, 3}, 4);
+        NeuralNetwork irisNetwork = new NeuralNetwork(new int[]{3}, 4, 0.01, 2, 0.01, 0.0001);
 
 //        for (int epoch = 0; epoch < 2; epoch++) {
 //            Collections.shuffle(pairings.get("training"));
-            irisNetwork.train(pairings.get("training"), 0.00001);
+        irisNetwork.train(pairings.get("training"));
 //        }
 
         irisNetwork.display();
@@ -71,7 +131,7 @@ public class NNTesting implements NetworkConstants {
         System.out.println("Cumulative loss: " + NeuralNetwork.cumulativeLoss(pairings.get("testing"), irisNetwork));
 
         System.exit(0);
-
+// -------------------------------------------------------------------------------------------------------------------
 
 //        //Direct testing
 //        //Iris input data is of length 4
