@@ -111,8 +111,13 @@ public class NeuralNetwork implements NetworkConstants {
         int epoch = 0;
         double lossf = 0;
         double lossi = 1;
-        while (momentum > minMomentum && lossi - lossf > lossSeparator) {
-            lossi = cumulativeLoss(trainingData, this);
+//        while (momentum > minMomentum && lossi - lossf > lossSeparator) {
+        while (momentum > minMomentum) {
+
+//            System.out.println(trainingData.get(0).getInput());
+//            if (true) continue;
+
+//            lossi = cumulativeLoss(trainingData, this);
             NetworkGradient cumulativeLossGradient = new NetworkGradient();
             for (NetworkData data : trainingData) {
                 cumulativeLossGradient.add(getGradient(data.getInput(), data.getOutput()));
@@ -121,15 +126,19 @@ public class NeuralNetwork implements NetworkConstants {
             updateWeightsAndBiases(updateGradient);
             double gradientMagnitude = getGradientMagnitude(cumulativeLossGradient);
             momentum = 2 * maxMomentum * (Perceptron.sigmoid(gradientMagnitude) - 0.5);
-            if (momentum < minMomentum && epoch < 10) {
-                reinitializeWeightsAndBiases(10);
-                epoch = 0;
-            }
+//            if (momentum < minMomentum && epoch < 10) {
+//                reinitializeWeightsAndBiases(10);
+//                epoch = 0;
+//                momentum = 1;
+//                lossf = 0;
+//                lossi = 1;
+//                continue;
+//            }
             lossf = cumulativeLoss(trainingData, this);
             epoch++;
-//            System.out.println("loss: " + lossf);
-//            System.out.println("|gradient|: " + gradientMagnitude);
-//            System.out.println("momentum: " + momentum);
+            System.out.println("loss: " + lossf);
+            System.out.println("|gradient|: " + gradientMagnitude);
+            System.out.println("momentum: " + momentum);
         }
     }
 
