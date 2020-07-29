@@ -5,8 +5,6 @@ import java.util.HashMap;
 import java.util.function.DoubleToIntFunction;
 
 
-//TODO Question: should cumulative or differential gradient descent be used?
-//TODO Potential Solution: implement a gradient calculation that takes the cumulative loss of the training set as the loss output, instead of individual losses for each training point
 public class NNTesting implements NetworkConstants {
 
     public static void main(String[] args) {
